@@ -1,0 +1,118 @@
+			README.amiga
+			============
+			
+			Samuel Devulder
+ 		  (devulder@info.unicaen.fr)
+ 		  
+ 		  	 02/06/1999
+
+A PROPOS:
+========
+
+Ceci est un portage rapide sur amiga de TEO, l'émululateur de TO8 
+créé par Gilles Fétis. Le portage a été fait par Samuel Devulder en 
+Aout 1998 (devulder@info.unicaen.fr). 
+
+En réalite depuis cette date le portage a pas mal évolué notamment
+dans les optimisations en assembleur et le support des routines
+graphiques de l'OS. Du coup, teo pour amiga est devenu trés véloce! 
+(c'est donc toujours un portage rapide, mais dans un autre sens
+ce coup ci :-)
+
+CONTENU:
+=======
+
+Il y a normalement deux éxecutables dans cette distribution:
+	- teo
+	- teo.full
+
+"teo.full" est la version complète de teo. Elle inclu le
+débogeur et l'émulation des codes de protection de certains
+jeux. Cette version est plus lente et ne doit être utilisée
+que par curiosité ou pour les jeux nécessitant la présence de
+l'émulation du code de protection.
+
+"teo" est une version allegée et rapide de teo. Elle contient
+ni le débogeur ni l'émulation du code de protection. Cette
+version est environ 50% plus rapide que "teo.full".
+
+USAGE:
+=====
+
+C'est pratiquement la même chose que la version MS/DOS, donc vous 
+pouvez vous référer à la documentation originale ! Sachez toute
+fois que cet emulateur a besoin des rom du TO8 sous forme de
+fichier à deposer dans le répertoire ou réside l'émulateur. Ces
+fichiers NE SONT PAS fournis dans cette distribution mais peuvent
+être trouvés sur les sites WEB dédiés à l'émulation des ordinateurs
+de la gamme thomson (par exemple: http://lair.info.unicaen.fr/).
+
+Quelques notes cependant concernant l'amiga:
+	- La touche ESC fait passer au menu (en ASCII pour le 
+	  moment car c'est un portage rapide et puis j'aime bien
+          ce look ASCII). A partir du menu vous pouvez quitter ou 
+          sélectionner les fichier SAP ou K7. 
+
+	  Lors de la sélection de fichier, la touche TAB effectuera 
+	  une complémentation automatique du nom de fichier (essayer, 
+	  c'est l'adopter ! :).
+
+        - Le menu étendu (F9 dans l'emul ou "O" dans le menu initial) 
+	  permet aussi de modifier certains paramètres comme 
+	  l'émulation sonore ou la correction gamma ainsi que la
+	  vitesse. A noter que l'on peut désactiver l'utilisation
+	  de l'OS pour aller encore plus vite (par défaut, l'émulateur
+	  utilise l'OS pour le rendu graphique). Les options de ce menu
+	  sont sauvegardées (PROGDIR:teo.prefs) lorsque qu'on quitte
+	  l'émulateur.
+
+	- Dans l'émulateur, le mapping clavier est le même que le 
+	  TO8 (ie AZERTY traditionnel), sauf que:
+		. "§" (ie touche "6" sans shift) produit  un "-", 
+		. "`" produit un HOME, 
+		. TAB simule la touche STOP,
+		. shift + "`" = "~" produit un RAZ, 
+		. HELP simule la touche INS,
+		. NumL (pave numerique "[") fait passer du mode 
+		  émulation joystick au mode pavé numérique. 
+	  Cela peut paraître compliqué, mais en réalité le keymap 
+	  reflète éxactement celui d'un TO8.
+
+	  En mode émulation joystick, RightAmiga simule le bouton 
+	  "Action" (bien évidemment on peut aussi utiliser un vrai 
+	  joystick à la place).
+
+MISC:
+====
+
+Si vous voulez le source, envoyez moi un mail (les sources ne sont 
+pas encore publiques). 
+
+Le source se compile avec gcc amiga, mais les autres compilos
+(SAS/C) devraient aussi faire l'affaire. Le makefile amiga est
+le fichier Makefile.ami (donc compiler par "make -f Makefile.ami").
+Vous pouvez vous en inspirer pour créer un sMakefile pour SAS/C,
+mais il faut savoir que l'executable genéré par gcc sera de meilleur 
+qualité et plus rapide car ce compilo possède pas mal d'optims très 
+utiles pour teo. 
+
+Le code est à peu près propre, sauf que l'affichage poke directement
+dans le bitmap de l'écran (question de rapidité), ce qui peut poser 
+problème pour les possesseurs de cartes graphiques. Si c'est votre
+cas, essayez de faire fonctionner l'émulateur avec le mode "UTILISATION
+OS" du menu étendu (F9). A noter que l'écran ouvert par TEO est en mode 
+PAL (le TO8 fonctionne lui aussi de toute façon avec une sortie PAL) 
+et que donc pour voir cela correctement sur un ecran VGA, il faut peut-
+être utiliser un promoteur d'écran qui fait passer le mode video en
+DBLSCAN (normalement, vous avez certainement déjà installé ce genre
+de bidouille sur votre système amiga).
+
+LEGAL:
+=====
+
+Comme d'habitude, ce programme est fourni "tel quel" et je ne pourrais 
+pas être tenu responsable des dégats qu'il pourrait éventuellement 
+infliger à votre système informatique. Bref, utilisez ce programme à 
+vos risques et périls; mais rassurez vous, il doit marcher sans gros 
+problèmes et si vous en rencontrez, je serais très content de recevoir 
+un e-mail me rapportant le "bug" de sorte que j'amméliore ce programme.

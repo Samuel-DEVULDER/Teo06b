@@ -1,0 +1,27 @@
+05.02.2000
+	Modif du code gerant les interruptions IRQ. Emulation timer
+	plus fidele.
+03.02.2000
+	Emul palette modifiee: On change la palette en fin de VBL, et
+	si le mode slowgfx est choisi on poke dans les customchip 
+	directement. Ceci permet de voir les "rasters" video. Dans ce
+	mode la, en cas de "refresh screen" (ie. modif du mode gfx)
+	les interrupts sont verifiees pour chaque ligne video.
+	En mode	fastgfx, les interrupts clavier/vbl sont verifiees
+	uniquement a chaque vbl et les modif de mode graphique n'entrainent 
+	pas de refresh screen.
+30.01.2000
+	Ajout d'une fonction reactualisant un gpl. Changement du code
+	de commutation memoire video (hcl_mdegademo marche bcp mieux).
+	Ajout d'un selecteur pour les modes video. Modif. du fichier
+	de config en consequence.
+29.01.2000
+	Changement du code relatif au calcul du numero de VBL.
+23.01.2000
+	Modification du fichier de config pour stocker l'etat de numlock,
+	et des fichiers precedents.
+22.01.2000
+	Ajout d'un requester ASL pour selectionner les disks 0 et 1.
+10.01.2000
+	Leger changement dans le mapping clavier: '=' donne bien un '=',
+	'\'
