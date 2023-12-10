@@ -1,0 +1,31 @@
+#
+# Makefile pour TEO sur AMIGA
+#
+# Créé par Samuel Devulder, 08/98.
+#
+
+CC=sc
+OFLAGS=CPU=68030 NOSTKCHK OPT
+
+CFLAGS=$(OFLAGS) IDIR=amiga/ IDIR="" DEF inline=__inline DEF FAST=1
+
+LN=$(CC)
+LFLAGS=CODE=FAR DATA=FAR
+
+RM=delete
+
+OBJS=	index.o debug.o disk.o main.o mapper.o mc6809_1.o\
+        mc6809_2.o mem_mng.o setup.o setup2.o keyb.o zfile.o\
+	amiga/gui.o amiga/graph.o amiga/sound.o amiga/events.o
+
+teo: $(OBJS)
+	$(LN) LINK $(OBJS) TO $@ $(LFLAGS)
+
+clean:
+	$(RM) $(OBJS) teo.lnk
+
+# hum, faudrait mettre des dependances .h -> .c dans le coin, mais
+# comme tout est inter-depedant, autant faire "make clean;make"
+# si on vent etre certain du code.
+.c.o:
+	$(CC) NOLINK $*.c TO $@ $(CFLAGS)

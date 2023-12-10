@@ -1,0 +1,55 @@
+#
+# Makefile pour TEO sur AMIGA
+#
+# Créé par Samuel Devulder, 08/98.
+#
+
+CC=gcc
+OFLAGS=	-fcall-used-d2 -fcall-used-d3 -fcall-used-d4 -fcall-used-d5\
+        -fcall-used-a6 -fcall-used-a3\
+	-fomit-frame-pointer -m68030 -O3 -fno-volatile -fno-volatile-global
+#	-fmove-all-movables -freduce-all-givs -fregmove 
+# 	-fcall-used-a2 -fcall-used-a3\
+
+CFLAGS=$(OFLAGS) -Iamiga/ -I. -Wall
+
+LN=$(CC)
+LFLAGS=-noixemul
+
+RM=rm
+
+OBJS=	debug.o disk.o index.o main.o mapper.o mc6809_1.o\
+        mc6809_2.o mem_mng.o setup.o setup2.o keyb.o zfile.o\
+	amiga/gui.o amiga/graph.o amiga/sound.o amiga/events.o
+
+teo: $(OBJS)
+	$(LN) $(OBJS) -o $@ $(LFLAGS)
+
+debug:
+	make OFLAGS=-g
+	
+profile:
+	make "OFLAGS=-p -D__PROFILE__ -O3 -m68030" LFLAGS=-p
+
+useallregs:
+	make "OFLAGS= -fcall-used-d2 -fcall-used-d3 -fcall-used-d4\
+		      -fcall-used-d5 -fcall-used-d6 -fcall-used-d7\
+		      -fcall-used-a2 -fcall-used-a3 -fcall-used-a4\
+		      -fno-function-cse -fomit-frame-pointer -m68030 -O3"
+
+ixemul:
+	-rm teo
+	make "MFLAGS="
+
+clean:
+	$(RM) $(OBJS)
+
+# hum, faudrait mettre des dependances .h -> .c dans le coin, mais
+# comme tout est inter-depedant, autant faire "make clean;make"
+# si on vent etre certain du code.
+.c.o:
+	$(CC) -S $*.c -o $*.asm $(CFLAGS)
+	perl perl_opt.pl $*.asm >$*.s
+	$(CC) -c $*.s -o $*.o $(CFLAGS)
+	rm $*.asm
+	
